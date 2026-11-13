@@ -16,22 +16,15 @@ metadata:
 - 先确认目标：了解整个项目，还是只需某模块/某服务的上下文
 - 局部探索不摸全项目，输出聚焦该模块
 
-## 摸底顺序（已获答案的步骤跳过）
-1. 项目内 AGENTS.md（最高优先级，与全局冲突时按「边界与冲突」处理）
-2. README / 项目文档
-3. 依赖声明（package.json / requirements.txt / go.mod / Cargo.toml 等），识别技术栈
-4. 目录结构（顶层 + 核心子目录），标注职责
-5. 测试入口与现有测试，确认能否跑通
-6. 启动/构建命令（README、CI 配置、Makefile、scripts 目录）
-
-## 摸底命令（先跑再读，缺了就跳过）
-以下是常用探测，不是硬性步骤：项目没有对应入口（比如没有 `make help`）就跳过，别卡在那里。
-- 结构：`ls` + `find . -maxdepth 2 -type d | sort`，不要一上来就读文件
-- 技术栈：先找依赖声明（package.json / Cargo.toml / go.mod / guix.scm / requirements.txt），没有再看 Makefile
-- 构建与测试入口：`make -n`（干跑看目标）、`make help`、`ls tests scripts`；CI 配置里通常是权威命令
-- 活跃度与风格：`git log --oneline -20`、`git log --stat -5 -- <核心目录>`、`rg -n 'TODO|FIXME' | head`
-- 规模：`wc -l` 最大的 10 个文件（找出热点与可能的坏味道）
-- 文档可信度：`rg -n 'deprecated|outdated' docs | head`，文档常滞后于代码
+## 摸底（按顺序；先跑命令再读文件，缺入口就跳过）
+1. 项目内 AGENTS.md —— 最高优先，与全局冲突时按「边界与冲突」处理
+2. README / 项目文档 —— 只读定位段落（构建、测试、架构），不逐字读
+3. 依赖与技术栈 —— `package.json` / `Cargo.toml` / `go.mod` / `guix.scm` / `requirements.txt`，都没有再看 `Makefile`
+4. 目录职责 —— `find . -maxdepth 2 -type d | sort`，不要一上来就读文件
+5. 构建与测试入口 —— `make -n`、`make help`、`ls tests scripts`；CI 配置里的命令最权威
+6. 规模与味道 —— `wc -l` 前十的文件、`rg -n 'TODO|FIXME' | head`
+7. 活跃度 —— `git log --oneline -20`、`git log --stat -5 -- <核心目录>`
+8. 文档可信度 —— `rg -n 'deprecated|outdated' docs | head`（文档常滞后于代码）
 
 ## 项目卡片字段
 - 技术栈与关键依赖（含版本锁定情况）

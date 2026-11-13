@@ -14,25 +14,20 @@ metadata:
 
 ## 原子提交
 - 完成一个逻辑独立的改动立即提交，不堆积到批处理
-- 只 add 与本次逻辑改动相关的文件，无关改动用 git add -p 拆开或留在工作区
+- 只 add 与本次逻辑改动相关的文件，无关改动用 `git add -p` 拆开或留在工作区
 - 提交信息：类型 + 简短描述，如 `fix: 修复登录接口空指针`
 - 一个功能不超过 3-5 个原子提交，超过说明粒度可能太小
 
-## 阶段整理
-- 先列当前分支历史，与用户确认整理范围
-- 同一逻辑线索的散提交 squash 成有意义的提交
-- 重写提交信息，删掉 wip / temp / debug 类噪音
-- 检查整理后的历史是否可理解、可回溯
-
-## 常用命令
-- 拆提交：`git add -p`；只想重新选择某个文件的暂存内容：`git reset -p`
-- 看要整理什么：`git status --short`；未推送范围用 `git log --oneline @{u}..`。
-  没配置上游时会报错，先用 `git branch -vv` 确认，或退化为 `git log --oneline -20` 手工界定起点
-- 整理最近 N 个：`git rebase -i HEAD~N`，标记 `fixup` / `reword` / `drop`
+## 整理流程（含命令）
+- 先看要整理什么：`git status --short`；未推送范围 `git log --oneline @{u}..`，
+  没配上游会报错，先用 `git branch -vv` 确认，或退化为 `git log --oneline -20` 手工界定起点
+- 与用户确认整理范围后再动手；同一逻辑线索的散提交 squash：`git rebase -i HEAD~N`，标记 `fixup` / `reword` / `drop`
 - **非交互环境**（助手跑 bash 时无法打开交互编辑器）：
-  - 逐条认领：先 `git commit --fixup <目标提交>`，再 `GIT_SEQUENCE_EDITOR=true git rebase -i --autosquash HEAD~N`
+  - 逐条认领：`git commit --fixup <目标提交>` + `GIT_SEQUENCE_EDITOR=true git rebase -i --autosquash HEAD~N`
   - 整体合并最近 N 个：`git reset --soft HEAD~N && git commit`
   - 两者都会重写提交，仅限未推送；遇冲突停下来说明现场，不硬解
+- 重写提交信息，删掉 wip / temp / debug 类噪音；检查整理后的历史可理解、可回溯
+- 拆提交：`git add -p`；重选某文件的暂存内容：`git reset -p`
 - 提交前自检：`git diff --cached --stat`，确认只含本次逻辑的改动
 - 改错了但还没推送：`git commit --amend`（**仅限未推送**）
 
