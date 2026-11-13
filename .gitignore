@@ -1,0 +1,15 @@
+# 凭据：绝不入库
+auth.json
+*.key
+.env
+
+# pi 运行时数据
+sessions/
+npm/
+models-store.json
+*.log
+tmp/
+
+# 编辑器 / 系统
+.DS_Store
+*.swp
