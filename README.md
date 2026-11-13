@@ -9,7 +9,7 @@
 AGENTS.md          # 全局指令：沟通方式、授权边界、工具使用、长命令与验证、Skills 路由表
 settings.json      # 默认模型 / 工具选择（不含凭据）
 mcp.json           # MCP 服务器声明（filesystem）
-skills/            # 8 个自包含技能，每个目录只有一份 SKILL.md
+skills/            # 9 个自包含技能，每个目录只有一份 SKILL.md
 extensions/        # 手写扩展
   10-long-command-guard.ts   # 给可能跑很久的 bash 命令自动加 timeout，复杂命令拦下并要求改写
   20-env-preflight.ts        # 仅在「不在 guix shell 且项目有 guix.scm」时提示
@@ -83,6 +83,7 @@ extensions/        # 手写扩展
 | `design` | 架构选型与结构重构 |
 | `diagnose` | 有具体症状的排查（报错、偶发、慢） |
 | `quality-review` | 代码评审 / 安全审计 / 质量门禁 |
+| `vuln-research` | 外部项目的漏洞挖掘、PoC 复现与影响面判定（仅验证、非武器化） |
 | `testing-guidelines` | 测试编写与策略 |
 | `minimal-change` | 控制代码量与改动范围 |
 | `git-workflow` | 原子提交与历史整理（只能显式启用） |

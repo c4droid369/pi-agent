@@ -76,12 +76,15 @@
 | 架构选型、方案推导、结构重构与抽象提取 | `design` |
 | 有明确症状：报错、偶现失败、慢、超时 | `diagnose` |
 | 评审 / 安全审计 / 交付门禁 | `quality-review` |
+| 对外部项目做挖洞、复现、影响面判定 | `vuln-research` |
 | 写测试、测试方案、测试重构 | `testing-guidelines` |
 | 压代码量、精准修改、紧急修复 | `minimal-change` |
 | 建 commit、整理历史 | `git-workflow`（只能显式启用） |
 | 接手陌生项目、输出项目卡片 | `project-onboarding` |
 
 启用方式：在对话中说“启用 design”或写 `/skill:design`；项目 AGENTS.md 也可写 `skill: design`。`git-workflow` 带 `disable-model-invocation`，只能通过 `/skill:git-workflow` 启用。旧名（minimalism、vuln-check、code-review、first-principles、bug-hunting 等）视为对应合并后 Skill 的别名。
+
+边界：`quality-review` 管自己项目开发中的审计与验收；`vuln-research` 管对外部项目的挖洞与复现，两者共用分级与状态标签，报告不另立一套。
 
 每个 Skill 只有一份自包含的 `SKILL.md`（何时用 / 方法 / 边界 / 交付前自检），没有 references 目录，不需要额外读取；互斥关系写在各自 description 里，加载前就能判断。
 
