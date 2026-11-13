@@ -24,6 +24,15 @@ metadata:
 5. 测试入口与现有测试，确认能否跑通
 6. 启动/构建命令（README、CI 配置、Makefile、scripts 目录）
 
+## 摸底命令（先跑再读，缺了就跳过）
+以下是常用探测，不是硬性步骤：项目没有对应入口（比如没有 `make help`）就跳过，别卡在那里。
+- 结构：`ls` + `find . -maxdepth 2 -type d | sort`，不要一上来就读文件
+- 技术栈：先找依赖声明（package.json / Cargo.toml / go.mod / guix.scm / requirements.txt），没有再看 Makefile
+- 构建与测试入口：`make -n`（干跑看目标）、`make help`、`ls tests scripts`；CI 配置里通常是权威命令
+- 活跃度与风格：`git log --oneline -20`、`git log --stat -5 -- <核心目录>`、`rg -n 'TODO|FIXME' | head`
+- 规模：`wc -l` 最大的 10 个文件（找出热点与可能的坏味道）
+- 文档可信度：`rg -n 'deprecated|outdated' docs | head`，文档常滞后于代码
+
 ## 项目卡片字段
 - 技术栈与关键依赖（含版本锁定情况）
 - 常用命令（启动/测试/构建/lint）及来源
